@@ -9,14 +9,17 @@ import java.util.List;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 
 import com.samxspencer.bankingcore.dto.AmountRequest;
+import com.samxspencer.bankingcore.dto.CreateAccountRequest;
 import com.samxspencer.bankingcore.dto.TransferRequest;
 
 import jakarta.validation.Valid;
 
 
 // HTTP endpoints
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
@@ -28,10 +31,12 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account createAccount(@RequestParam String name,
-                                 @RequestParam String currency) {
+    public Account createAccount(@RequestBody CreateAccountRequest request) {
 
-        return accountService.createAccount(name, currency);
+        return accountService.createAccount(
+            request.getName(), 
+            request.getCurrency()
+        );
     }
 
 
