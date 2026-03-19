@@ -103,4 +103,17 @@ public class AccountService {
     public Page<Transaction> getTransactions(String accountNumber, Pageable pageable) {
         return transactionRepository.findByAccountNumber(accountNumber, pageable);
     }
+
+    @Transactional
+    public Account updateAccount(String accountNumber, String newName) {
+
+        Account account = accountRepository
+                .findByAccountNumber(accountNumber)
+                .orElseThrow(() ->
+                        new RuntimeException("Account not found"));
+
+        account.setAccountName(newName);
+
+        return account;
+    }
 }

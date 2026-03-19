@@ -98,4 +98,9 @@ public class Account {
     public String getCurrency() { return currency; }
     public AccountStatus getStatus() { return status; }
     public Instant getCreatedAt() { return createdAt; }
+
+    // --- Setters ---
+    public void setAccountName(String accountName){
+        this.accountHolderName = accountName;
+    }
 }

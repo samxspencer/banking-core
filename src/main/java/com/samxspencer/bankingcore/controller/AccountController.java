@@ -5,6 +5,7 @@ import com.samxspencer.bankingcore.domain.Transaction;
 import com.samxspencer.bankingcore.service.AccountService;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import com.samxspencer.bankingcore.dto.AmountRequest;
 import com.samxspencer.bankingcore.dto.CreateAccountRequest;
 import com.samxspencer.bankingcore.dto.TransferRequest;
+import com.samxspencer.bankingcore.dto.UpdateAccountRequest;
 
 import jakarta.validation.Valid;
 
@@ -81,4 +83,18 @@ public class AccountController {
 
         return accountService.getTransactions(accountNumber, pageable);
     }
+
+    @PutMapping("/{accountNumber}")
+    public ResponseEntity<Account> updateAccount(
+            @PathVariable String accountNumber,
+            @RequestBody UpdateAccountRequest request) {
+
+        return ResponseEntity.ok(
+                accountService.updateAccount(
+                        accountNumber,
+                        request.getAccountName()
+                )
+        );
+    }
+
 }
